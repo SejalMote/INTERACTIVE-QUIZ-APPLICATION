@@ -42,3 +42,7 @@ It’s ideal for quick, private self-assessment and can guide users toward seeki
 
 Conclusion:
 This project showcases how basic web development skills can be applied to support mental health. With clean design and simple functionality, it can be expanded into larger platforms or mobile apps to reach a broader audience.
+
+*OUTPUT*:
+
+![Image](https://github.com/user-attachments/assets/89a610f4-7d74-4ae2-815f-0d9d2f444b9e)
