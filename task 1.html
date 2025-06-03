@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Depression Self-Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f2e9cc, #f2c8bd);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .options {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #a6a5d4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Depression Self-Test</h1>
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options">
+        <label><input type="radio" name="option" value="0"> Not at all </label>
+        <label><input type="radio" name="option" value="1"> Several days </label>
+        <label><input type="radio" name="option" value="2"> More than half the days </label>
+        <label><input type="radio" name="option" value="3"> Nearly every day </label>
+      </div>
+      <button onclick="nextQuestion()">Next</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      "Little interest or pleasure in doing things?",
+      "Feeling down, depressed, or hopeless?",
+      "Trouble falling or staying asleep, or sleeping too much?",
+      "Feeling tired or having little energy?",
+      "Poor appetite or overeating?",
+      "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?",
+      "Trouble concentrating on things, such as reading or watching TV?",
+      "Moving or speaking so slowly that other people could have noticed?",
+      "Thoughts that you would be better off dead, or thoughts of hurting yourself?",
+      "Feeling disconnected from people or society?",
+      "Lack of motivation or drive to complete tasks?",
+      "Constant worry or anxiety that is hard to control?",
+      "Feeling like a burden to others?",
+      "Avoiding friends or social activities?",
+      "Feeling overwhelmed by everyday tasks?"
+    ];
+
+    let currentQuestion = 0;
+    let totalScore = 0;
+
+    const questionElement = document.getElementById("question");
+    const resultElement = document.getElementById("result");
+
+    function showQuestion() {
+      questionElement.textContent = questions[currentQuestion];
+      document.querySelectorAll('input[name="option"]').forEach(input => input.checked = false);
+    }
+
+    function nextQuestion() {
+      const selectedOption = document.querySelector('input[name="option"]:checked');
+      if (!selectedOption) {
+        alert("Please select an option.");
+        return;
+      }
+      totalScore += parseInt(selectedOption.value);
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      let message = "";
+      if (totalScore <= 4) {
+        message = "Minimal or No Depression";
+      } else if (totalScore <= 9) {
+        message = "Mild Depression";
+      } else if (totalScore <= 14) {
+        message = "Moderate Depression";
+      } else {
+        message = "Severe Depression";
+      }
+      resultElement.innerHTML = `<p>Your Score: ${totalScore}</p><p>Assessment: ${message}</p>`;
+      document.getElementById("quiz").querySelector("button").style.display = "none";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
